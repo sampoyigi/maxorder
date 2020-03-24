@@ -1,6 +1,10 @@
 <?php namespace SamPoyigi\MaxOrder;
 
+use Admin\Models\Orders_model;
+use Igniter\Flame\Exception\ApplicationException;
+use Igniter\Local\Classes\Location;
 use Illuminate\Support\Facades\Event;
+use SamPoyigi\MaxOrder\Models\MaxOrderSettings;
 use System\Classes\BaseExtension;
 
 /**
@@ -18,7 +22,7 @@ class Extension extends BaseExtension
         return [
             'name' => 'Maximum Orders',
             'author' => 'SamPoyigi',
-            'description' => 'Allow a maximum number of orders within a specified period',
+            'description' => 'Allow a maximum number of orders for each delivery/pick-up timeslot',
             'icon' => 'fa-plug',
             'version' => '1.0.0',
         ];
@@ -41,9 +45,17 @@ class Extension extends BaseExtension
      */
     public function boot()
     {
-//        $this->location->scheduleTimeslot();
-        Event::listen('location.timeslot.updated', function ($location, $slot, $oldSlot) {
-            
+        Event::listen('igniter.checkout.beforeSaveOrder', function ($order, $data) {
+            $maxNoOfOrders = MaxOrderSettings::get('order_limit');
+            $orderDateTime = Location::instance()->orderDateTime();
+
+            $query = Orders_model::newQuery();
+            $query->where('order_date', $orderDateTime->format('Y-m-d'))
+                  ->where('order_time', $orderDateTime->format('H:i'))
+                  ->whereNotNull('status_id')->where('status_id', '!=', '0');
+
+            if ($query->count() >= $maxNoOfOrders)
+                throw new ApplicationException('Maximum number of orders reached, please choose a different delivery/pick-up timeslot');
         });
     }
 
@@ -52,7 +64,7 @@ class Extension extends BaseExtension
         return [
             'settings' => [
                 'label' => 'Maximum Orders Settings',
-                'description' => 'Set the number of maximum orders and period it applies to.',
+                'description' => 'Set the number of maximum orders to allow.',
                 'icon' => 'fa fa-cart-plus',
                 'model' => 'SamPoyigi\MaxOrder\Models\MaxOrderSettings',
                 'permissions' => ['SamPoyigi.MaxOrder.ManageSetting'],
