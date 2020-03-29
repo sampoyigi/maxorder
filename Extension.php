@@ -2,7 +2,7 @@
 
 use Admin\Models\Orders_model;
 use Igniter\Flame\Exception\ApplicationException;
-use Igniter\Local\Classes\Location;
+use Igniter\Local\Facades\Location;
 use Illuminate\Support\Facades\Event;
 use SamPoyigi\MaxOrder\Models\MaxOrderSettings;
 use System\Classes\BaseExtension;
