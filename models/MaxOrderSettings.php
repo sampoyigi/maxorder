@@ -1,6 +1,6 @@
 <?php namespace SamPoyigi\MaxOrder\Models;
 
-use Model;
+use Igniter\Flame\Database\Model;
 
 class MaxOrderSettings extends Model
 {
