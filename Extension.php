@@ -35,7 +35,6 @@ class Extension extends BaseExtension
      */
     public function register()
     {
-
     }
 
     /**
@@ -51,8 +50,8 @@ class Extension extends BaseExtension
 
             $query = Orders_model::newQuery();
             $query->where('order_date', $orderDateTime->format('Y-m-d'))
-                  ->where('order_time', $orderDateTime->format('H:i'))
-                  ->whereNotNull('status_id')->where('status_id', '!=', '0');
+                ->where('order_time', $orderDateTime->format('H:i'))
+                ->whereNotNull('status_id')->where('status_id', '!=', '0');
 
             if ($query->count() >= $maxNoOfOrders)
                 throw new ApplicationException('Maximum number of orders reached, please choose a different delivery/pick-up timeslot');
@@ -82,7 +81,7 @@ class Extension extends BaseExtension
         return [
             'SamPoyigi.MaxOrder.ManageSetting' => [
                 'description' => 'Manage Maximum Order settings',
-//                'group' => 'module',
+                'group' => 'module',
             ],
         ];
     }
