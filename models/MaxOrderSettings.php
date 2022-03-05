@@ -4,7 +4,7 @@ use Igniter\Flame\Database\Model;
 
 class MaxOrderSettings extends Model
 {
-    public $implement = ['System\Actions\SettingsModel'];
+    public $implement = [\System\Actions\SettingsModel::class];
 
     // A unique code
     public $settingsCode = 'sampoyigi_maxorder_settings';
