@@ -65,7 +65,7 @@ class Extension extends BaseExtension
                 'label' => 'Maximum Orders Settings',
                 'description' => 'Set the number of maximum orders to allow.',
                 'icon' => 'fa fa-cart-plus',
-                'model' => 'SamPoyigi\MaxOrder\Models\MaxOrderSettings',
+                'model' => \SamPoyigi\MaxOrder\Models\MaxOrderSettings::class,
                 'permissions' => ['SamPoyigi.MaxOrder.ManageSetting'],
             ],
         ];
