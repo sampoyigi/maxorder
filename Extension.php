@@ -1,11 +1,11 @@
 <?php namespace SamPoyigi\MaxOrder;
 
-use Admin\Models\Orders_model;
+use Igniter\Admin\Models\Order;
 use Igniter\Flame\Exception\ApplicationException;
 use Igniter\Local\Facades\Location;
+use Igniter\System\Classes\BaseExtension;
 use Illuminate\Support\Facades\Event;
 use SamPoyigi\MaxOrder\Models\MaxOrderSettings;
-use System\Classes\BaseExtension;
 
 /**
  * MaxOrder Extension Information File
@@ -48,7 +48,7 @@ class Extension extends BaseExtension
             $maxNoOfOrders = MaxOrderSettings::get('order_limit');
             $orderDateTime = Location::instance()->orderDateTime();
 
-            $query = Orders_model::newQuery();
+            $query = Order::newQuery();
             $query->where('order_date', $orderDateTime->format('Y-m-d'))
                 ->where('order_time', $orderDateTime->format('H:i'))
                 ->whereNotNull('status_id')->where('status_id', '!=', '0');
