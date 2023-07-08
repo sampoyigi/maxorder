@@ -46,7 +46,7 @@ class Extension extends BaseExtension
     {
         Event::listen('igniter.checkout.beforeSaveOrder', function ($order, $data) {
             $maxNoOfOrders = MaxOrderSettings::get('order_limit');
-            $orderDateTime = Location::instance()->orderDateTime();
+            $orderDateTime = Location::orderDateTime();
 
             $query = Order::newQuery();
             $query->where('order_date', $orderDateTime->format('Y-m-d'))
