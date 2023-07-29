@@ -81,7 +81,7 @@ class Extension extends BaseExtension
         return [
             'SamPoyigi.MaxOrder.ManageSetting' => [
                 'description' => 'Manage Maximum Order settings',
-                'group' => 'module',
+                'group' => 'admin',
             ],
         ];
     }
