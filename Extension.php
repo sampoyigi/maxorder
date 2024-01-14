@@ -17,7 +17,7 @@ class Extension extends BaseExtension
      *
      * @return array
      */
-    public function extensionMeta()
+    public function extensionMeta(): array
     {
         return [
             'name' => 'Maximum Orders',
@@ -58,7 +58,7 @@ class Extension extends BaseExtension
         });
     }
 
-    public function registerSettings()
+    public function registerSettings(): array
     {
         return [
             'settings' => [
@@ -76,7 +76,7 @@ class Extension extends BaseExtension
      *
      * @return array
      */
-    public function registerPermissions()
+    public function registerPermissions(): array
     {
         return [
             'SamPoyigi.MaxOrder.ManageSetting' => [
